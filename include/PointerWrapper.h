@@ -63,7 +63,9 @@ public:
      * HINT: How should ownership transfer from one wrapper to another?
      * What should happen to the source wrapper after the move?
      */
-    PointerWrapper(PointerWrapper&& other) noexcept {}
+    PointerWrapper(PointerWrapper&& other) noexcept: ptr(other.ptr) {
+        other.ptr = nullptr;
+    }
 
     /**
      * TODO: Implement move assignment operator
@@ -88,6 +90,10 @@ public:
      */
 
     T& operator*() const {
+        if (ptr == nullptr) {
+        throw std::runtime_error("Attempted to dereference a null PointerWrapper.");
+    }
+   
         return *ptr;
     };
 
@@ -97,7 +103,7 @@ public:
      * What safety checks should you perform?
      */
     T* operator->() const {
-        return nullptr;
+        return ptr;
     }
 
     /**
@@ -107,7 +113,10 @@ public:
      * @throws std::runtime_error if ptr is null
      */
     T* get() const {
-        return nullptr; // Placeholder
+       if (ptr == nullptr) {
+        throw std::runtime_error("Attempted to call get() on a null PointerWrapper.");
+    }
+    return ptr;
     }
 
     // ========== OWNERSHIP MANAGEMENT ==========
