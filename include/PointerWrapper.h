@@ -37,7 +37,10 @@ public:
      * Think about ownership and resource management.
      * Is the default destructor sufficient here?
      */
-    ~PointerWrapper() =default;
+    ~PointerWrapper() {
+        delete ptr;
+        ptr=nullptr;
+    }
 
     // ========== COPY OPERATIONS (DELETED) ==========
 
@@ -68,6 +71,11 @@ public:
      * Don't forget about self-assignment!
      */
     PointerWrapper& operator=(PointerWrapper&& other) noexcept {
+        if (this!=&other){
+            delete ptr;
+            ptr=other.ptr;
+            other.ptr=nullptr;
+        }
         return *this;
     }
 
@@ -109,8 +117,10 @@ public:
      * HINT: What does "release" mean in terms of ownership?
      * Should the wrapper still own the pointer after calling release()?
      */
-    T* release() {
-        return nullptr;
+    T* release(){
+        T* point=ptr;
+        ptr=nullptr;
+        return point;
     }
 
     /**
@@ -119,6 +129,10 @@ public:
      * What should happen to the old pointer?
      */
     void reset(T* new_ptr = nullptr) {
+          if (ptr!=new_ptr){
+            delete ptr;
+            ptr=new_ptr;
+        }
     }
 
     // ========== UTILITY FUNCTIONS ==========
@@ -129,7 +143,9 @@ public:
      * Why might the explicit keyword be important here?
      */
     explicit operator bool() const {
-        return false; //placeholder
+        if(ptr!=nullptr)
+            return false;
+        return true; //placeholder
     }
 
     /**
