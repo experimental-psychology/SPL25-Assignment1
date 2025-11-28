@@ -23,7 +23,7 @@ bool LRUCache::put(PointerWrapper<AudioTrack> track) {
     std::string title = (*track).get_title();
     size_t find= findSlot(title); 
     if (find != max_size) { 
-        slots[find].access(access_counter++); 
+        slots[find].access(++access_counter); 
         return false;
     }
     bool evicted = false;
