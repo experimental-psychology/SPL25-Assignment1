@@ -103,6 +103,8 @@ public:
      * What safety checks should you perform?
      */
     T* operator->() const {
+        if(ptr==nullptr)
+            throw std::runtime_error("Attempted to call get() on a null PointerWrapper.");
         return ptr;
     }
 

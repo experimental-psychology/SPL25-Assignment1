@@ -41,6 +41,8 @@ public:
      * Destructor
      */
     ~Playlist();
+    Playlist& operator=(const Playlist& other); //copy assigment operator
+    Playlist(const Playlist& other);  //copy constructor
 
     /**
      * Add a track to the playlist
