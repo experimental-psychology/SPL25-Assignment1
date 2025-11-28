@@ -89,7 +89,8 @@ public:
      * @throws std::runtime_error if ptr is null
      */
 
-    T& operator*() const {
+    T& operator*() const 
+    {
         if (ptr == nullptr) {
         throw std::runtime_error("Attempted to dereference a null PointerWrapper.");
     }
