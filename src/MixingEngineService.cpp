@@ -44,7 +44,7 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack& track)
           std::cout << "[ERROR] Track:" << track.get_title()<< " failed to clone" << std::endl;
           return -1;
     }
-    int target_deck ;
+    size_t target_deck ;
 
     if( (decks[0] == nullptr && decks[1] == nullptr))  target_deck = 0;
     else target_deck = 1 - active_deck;
@@ -67,8 +67,7 @@ int MixingEngineService::loadTrackToDeck(const AudioTrack& track)
     std::cout << "[Load Complete] '" << decks[target_deck]->get_title() 
               << "' is now loaded on deck " << target_deck << std::endl;
 
-    if (decks[active_deck] != nullptr && active_deck != target_deck)
-     {
+    if (decks[active_deck] != nullptr && active_deck != target_deck) {
         std::cout << "[Unload] Unloading previous deck " << active_deck 
                   << " (" << decks[active_deck]->get_title() << ")" << std::endl;
         delete decks[active_deck];
