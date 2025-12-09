@@ -18,7 +18,8 @@
 struct PlaylistNode {
     AudioTrack* track; 
     PlaylistNode* next;
-
+    PlaylistNode(const PlaylistNode&) = delete;
+    void operator=(const PlaylistNode&) = delete;
     PlaylistNode(AudioTrack* t) : track(t), next(nullptr) {}
     ~PlaylistNode() {
         delete track; //Playlist owns AudioTrack
@@ -30,6 +31,7 @@ private:
     PlaylistNode* head;
     std::string playlist_name;
     int track_count;
+
 
 public:
     /**
