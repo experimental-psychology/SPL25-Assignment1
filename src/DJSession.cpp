@@ -140,7 +140,6 @@ bool DJSession::load_playlist(const std::string& playlist_name)  {
     std::cout << "Cache Capacity: " << session_config.controller_cache_size << " slots (LRU policy)" << std::endl;
     std::cout << "\n--- Processing Tracks ---" << std::endl;
 
-     std::cout << "TODO: Implement the DJ performance simulation workflow here." << std::endl;
     // Your implementation here
     std::vector<std::string> playlists_to_process;
     bool keep_running = true;
